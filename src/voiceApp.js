@@ -7,7 +7,6 @@ const { send } = require('./send');
 const { spinner } = require('./spinner');
 
 function voiceApp() {
-  // const filePath = path.join(__dirname, '../audio/test.wav');
 
   // Initialize recorder and file stream.
   const audioRecorder = new AudioRecorder({
