@@ -1,0 +1,38 @@
+// eslint-disable-next-line no-unused-vars
+const dotenv = require('dotenv').config();
+const fs = require('fs');
+const AudioRecorder = require('node-audiorecorder');
+const { filePath } = require('./filePath');
+const { send } = require('./send');
+const { spinner } = require('./spinner');
+
+function voiceApp() {
+  // const filePath = path.join(__dirname, '../audio/test.wav');
+
+  // Initialize recorder and file stream.
+  const audioRecorder = new AudioRecorder({
+    program: 'sox',
+    rate: 16000, // Sample rate.
+    type: 'wav', // Format type.
+    silence: 5,
+  });
+
+  // Create write stream.
+  const fileStream = fs.createWriteStream(filePath, { encoding: 'binary' });
+
+  // Start and write to the file.
+  console.clear();
+  const recordSpinner = spinner('Recording');
+  audioRecorder.start().stream().pipe(fileStream);
+
+  // Kill spinner
+  fileStream.on('finish', () => {
+    console.clear();
+    clearInterval(recordSpinner);
+    send();
+  });
+}
+
+module.exports = {
+  voiceApp,
+};
