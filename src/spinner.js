@@ -6,7 +6,7 @@ function spinner(message) {
 
   return setInterval(() => {
     // eslint-disable-next-line no-plusplus
-    process.stdout.write(`\r${framesV3[i++ % framesV3.length]} ${message}...`);
+    process.stdout.write(`\r${framesV3[i++ % framesV3.length]} ${message}`);
   }, 100);
 }
 
