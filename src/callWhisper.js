@@ -14,7 +14,7 @@ const formData = new FormData();
 formData.append('model', model);
 formData.append('file', fs.createReadStream(filePath));
 
-function send() {
+function callWhisper() {
   const processingSpinner = spinner('Processing');
   axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
     headers: {
@@ -33,5 +33,5 @@ function send() {
 }
 
 module.exports = {
-  send,
+  callWhisper,
 };

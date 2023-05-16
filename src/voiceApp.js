@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config();
 const fs = require('fs');
 const AudioRecorder = require('node-audiorecorder');
 const { filePath } = require('./filePath');
-const { send } = require('./send');
+const { callWhisper } = require('./callWhisper');
 const { spinner } = require('./spinner');
 
 function voiceApp() {
@@ -28,7 +28,7 @@ function voiceApp() {
   fileStream.on('finish', () => {
     console.clear();
     clearInterval(recordSpinner);
-    send();
+    callWhisper();
   });
 }
 
