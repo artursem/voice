@@ -5,7 +5,7 @@ const fs = require('fs');
 const FormData = require('form-data');
 const { filePath } = require('./filePath');
 const { spinner } = require('./spinner');
-// const callAndPrint = require('./callGpt');
+const { callGpt } = require('./callGpt');
 
 const apiKey = process.env.OPENAI_API_KEY;
 
@@ -16,21 +16,19 @@ formData.append('model', model);
 formData.append('file', fs.createReadStream(filePath));
 
 function callWhisper() {
-  const processingSpinner = spinner('Processing');
+  const processingSpinner = spinner('User: ');
   axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'multipart/form-data',
     },
-  }).then((response) => {
+  }).then(async(response) => {
     clearInterval(processingSpinner);
-    console.clear();
     const question = response.data.text
     console.log(`\rUser: ${question}`);
-    // await callAndPrint(question)
+    await callGpt(question)
   })
   .catch((error) => {
-    console.clear();
     clearInterval(processingSpinner);
     console.log(error);
   });

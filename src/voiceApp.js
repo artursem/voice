@@ -21,7 +21,7 @@ function voiceApp() {
 
   // Start and write to the file.
   console.clear();
-  const recordSpinner = spinner('Recording');
+  const recordSpinner = spinner('Listening');
   audioRecorder.start().stream().pipe(fileStream);
 
   // Kill spinner
