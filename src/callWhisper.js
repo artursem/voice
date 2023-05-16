@@ -5,7 +5,7 @@ const fs = require('fs');
 const FormData = require('form-data');
 const { filePath } = require('./filePath');
 const { spinner } = require('./spinner');
-const callGpt = require('./callGpt');
+// const callAndPrint = require('./callGpt');
 
 const apiKey = process.env.OPENAI_API_KEY;
 
@@ -26,10 +26,8 @@ function callWhisper() {
     clearInterval(processingSpinner);
     console.clear();
     const question = response.data.text
-    console.log(`User: ${question}`);
-    return question
-  }).then((question)=>{
-    callGpt(question)
+    console.log(`\rUser: ${question}`);
+    // await callAndPrint(question)
   })
   .catch((error) => {
     console.clear();

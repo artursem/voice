@@ -15,10 +15,10 @@ async function callGpt(prompt) {
             prompt: generatePrompt(prompt),
             max_tokens: 80,
             echo: false,
-            temperature: .1,
+            temperature: .3,
     });
-    const result = completion.data.choices[0].text;
-    console.log(result.trim())  
+    const result = completion.data.choices[0].text.trim();
+    console.log(`\r${result}`)  
     } catch(error) {
         if (error.response) {
             console.error(error.response.status, error.response.data);
@@ -32,14 +32,14 @@ function generatePrompt(string) {
 
 
 // delete
-async function callAndPrint(){
+async function callAndPrint(question){
     const responseSpinner = spinner('Response')
-    await callGpt('what is the longest river in europe?')
+    await callGpt(question)
     clearInterval(responseSpinner)
 }
-callAndPrint()
+callAndPrint('What is the the highest mountain in Africa?')
 // delete
 module.exports = {
-    callGpt
+    callAndPrint
 }
 
